@@ -1,0 +1,5 @@
+*.out
+*.pyc
+start.py
+stop.py
+zoocfg.py

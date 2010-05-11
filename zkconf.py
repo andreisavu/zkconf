@@ -149,6 +149,13 @@ java -cp zookeeper.jar:log4j.jar:jline.jar:. org.apache.zookeeper.ZooKeeperMain 
                     ' | egrep "Mode: ")\n')
     writescript("status.sh", content)
 
+    content = '#!/bin/bash\n'
+    servers = []
+    for sid in xrange(1, len(options.servers)+1):
+        servers.append('%s:%s' % (options.servers[sid-1], options.clientports[sid-1]))
+    content += 'zktop --fix_330 --servers="%s"\n' % ",".join(servers)
+    writescript("top.sh", content)
+
     copyjar(False,
             [[args[0], "build", "lib"],
              [args[0], "src", "java", "lib"],

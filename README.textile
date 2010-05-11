@@ -73,3 +73,5 @@ Running localhost (default) starts client:quorum:election ports as 2181:3181:418
 * status.sh - status of each of the servers (prints leader | follower if active)
 * start.sh - start the ensemble (logs are output to the respective server subdir, localhost only)
 * stop.sh - stop the ensemble (localhost only)
+* top.sh - start zktop for this quorum. expects the zktop command to be in the current PATH. (zktop on github: http://github.com/phunt/zktop)
+
