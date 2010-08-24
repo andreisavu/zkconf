@@ -8,6 +8,9 @@ import optparse
 import random
 import time
 import signal
+import socket
+
+from subprocess import call
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -27,23 +30,19 @@ def main():
         time.sleep(1)
 
 def kill_node(n):
-    p = os.path.join(CURRENT_DIR, "%s:%s" % n, 'zookeeper_server.pid')
-    if not os.path.exists(p):
-        return False
-
-    pid = int(open(p).read())
-    print 'killing %s running with pid %d ...' % (n, pid)
-    try:
-        os.kill(pid, signal.SIGTERM)
-    except OSError:
-        print 'process with pid %d not found.' % pid
+    print 'stoping node %s ...' % (n,)
+    host, port = n
+    call(['./node_stop.sh %s' % port], shell=True)
 
 def start_node(n):
     print 're-starting the node %s ...' % (n,)
-    
+    host, port = n
+    call(['./node_start.sh %s' % port], shell=True) 
 
 def wait_join_cluster(n):
     print 'waiting for node to join the cluster ...'
+    # TODO wait for ruok - imok
+    time.sleep(5)
 
 def get_nodes():
     nodes = []
